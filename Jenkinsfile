@@ -9,6 +9,7 @@ node () {
  			// Shell build step
 sh """ 
 cd ~/documents/github/pipeline-terraform-jenkins/
+git pull https://github.com/DanyYanez/pipeline-terraform-jenkins
 terraform init
 terraform refresh
 terraform apply -auto-approve
