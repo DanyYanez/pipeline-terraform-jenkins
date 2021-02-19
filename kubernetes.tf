@@ -25,7 +25,7 @@ resource "kubernetes_deployment" "nginx" {
   }
 
   spec {
-    replicas = 3
+    replicas = 5
     selector {
       match_labels = {
         App = "ScalableNginxExample"
@@ -80,21 +80,4 @@ resource "kubernetes_service" "nginx" {
   }
 }
 
-
-
-
-
-#resource "docker_image" "flask" {
-#  name         = "habboubi/flaskapp:latest"
-#  keep_locally = false
-#}
-
-#resource "docker_container" "flask" {
-#  image = docker_image.flask.latest
-#  name  = "flaskapp"
-#  ports {
-#    internal = 80
-#    external = 80
-#  }
-#}
 
