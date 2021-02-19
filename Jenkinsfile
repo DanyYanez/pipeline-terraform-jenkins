@@ -9,6 +9,7 @@ node () {
  			// Shell build step
 sh """ 
 terraform init
+terraform refresh
 terraform apply -auto-approve 
  """ 
 	}
