@@ -9,12 +9,12 @@ node () {
  			// Shell build step
 sh """
 
-// cd in the cloned repo and pulling changes
+# cd in the cloned repo and pulling changes
 
 cd ~/documents/github/pipeline-terraform-jenkins/
 git pull https://github.com/DanyYanez/pipeline-terraform-jenkins
 
-// Starting terraform
+# Starting terraform
 
 terraform init
 terraform refresh
