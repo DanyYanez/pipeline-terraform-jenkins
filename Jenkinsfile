@@ -8,7 +8,7 @@ node () {
 	stage ('terraform-jenkins - Build') {
  			// Shell build step
 sh """ 
-kind create cluster --name terraform-jenkins --config kind-config.yaml
+kind create cluster --name terraform-jenkins --config ~/kind-config.yaml
 terraform init
 terraform refresh
 terraform apply -auto-approve 
