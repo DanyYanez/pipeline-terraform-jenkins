@@ -8,7 +8,7 @@ node () {
 	stage ('terraform-jenkins - Build') {
  			// Shell build step
 sh """ 
-cd
+cd ~/documents/github/pipeline-terraform-jenkins/
 terraform init
 terraform refresh
 terraform apply -auto-approve
