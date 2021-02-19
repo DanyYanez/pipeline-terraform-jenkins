@@ -3,11 +3,12 @@ timestamps {
 node () {
 
 	stage ('terraform-jenkins - Checkout') {
- 	 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/DanyYanez/sba.jenkins-github-pipeline']]]) 
+ 	 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/DanyYanez/pipeline-terraform-jenkins']]]) 
 	}
 	stage ('terraform-jenkins - Build') {
  			// Shell build step
 sh """ 
+kind create cluster --name terraform-jenkins --config kind-config.yaml
 terraform init
 terraform refresh
 terraform apply -auto-approve 
