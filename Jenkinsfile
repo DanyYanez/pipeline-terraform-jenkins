@@ -11,7 +11,6 @@ sh """
 terraform init
 terraform refresh
 terraform apply -auto-approve 
-terraform destroy -auto-approve
  """ 
 	}
 }
