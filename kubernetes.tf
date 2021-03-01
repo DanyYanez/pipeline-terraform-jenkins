@@ -33,7 +33,7 @@ resource "kubernetes_deployment" "jenkins" {
       }
       spec {
         container {
-          image = "jenkinsci/blueocean"
+          image = "danyyanez/finalproyect"
           name  = "example"
 
           port {
