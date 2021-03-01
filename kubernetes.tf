@@ -4,7 +4,7 @@ provider "kubernetes" {
 }
 
 locals {
-  flaskapp_labels = {
+  Jenkins_labels = {
     App  = "Jenkins"
   }
 }
