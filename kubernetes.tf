@@ -10,9 +10,9 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
-resource "kubernetes_deployment" "jenkins" {
+resource "kubernetes_deployment" "flaskapp" {
   metadata {
-    name = "jenkins"
+    name = "flaskapp"
     labels = {
       App = "ScalableNginxExample"
     }
@@ -37,7 +37,7 @@ resource "kubernetes_deployment" "jenkins" {
           name  = "example"
 
           port {
-            container_port = 8080
+            container_port = 80
           }
 
           resources {
@@ -56,18 +56,18 @@ resource "kubernetes_deployment" "jenkins" {
   }
 }
 
-resource "kubernetes_service" "jenkins_service" {
+resource "kubernetes_service" "flaskapp_service" {
   metadata {
-    name = "python:rc-alpine3.12"
+    name = "flaskapp_service"
   }
   spec {
     selector = {
-      App = kubernetes_deployment.jenkins.spec.0.template.0.metadata[0].labels.App
+      App = kubernetes_deployment.flaskapp.spec.0.template.0.metadata[0].labels.App
     }
     port {
       node_port   = 30201
-      port        = 8080
-      target_port = 8080
+      port        = 80
+      target_port = 80
     }
 
     type = "NodePort"
