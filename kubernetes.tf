@@ -1,3 +1,21 @@
+terraform {
+  required_providers {
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+    }
+    docker = {
+      source = "kreuzwerker/docker"
+    }
+  }
+}
+
+provider "kubernetes" {
+  config_path = "~/.kube/config"
+}
+
+provider "docker" {
+}
+
 resource "kubernetes_deployment" "nginx" {
   metadata {
     name = "scalable-nginx-example"
@@ -7,7 +25,7 @@ resource "kubernetes_deployment" "nginx" {
   }
 
   spec {
-    replicas = 2
+    replicas = 3
     selector {
       match_labels = {
         App = "ScalableNginxExample"
@@ -61,4 +79,3 @@ resource "kubernetes_service" "nginx" {
     type = "NodePort"
   }
 }
-
