@@ -8,17 +8,17 @@ node () {
 	stage ('terraform-jenkins - Build') {
  			// Shell build step
 sh """
-
+python3 web.py
 # cd in the cloned repo and pulling changes
 
-cd ~/documents/github/pipeline-terraform-jenkins/
-git pull https://github.com/DanyYanez/pipeline-terraform-jenkins
+#cd ~/documents/github/pipeline-terraform-jenkins/
+#git pull https://github.com/DanyYanez/pipeline-terraform-jenkins
 
 # Starting terraform
 
-terraform init
-terraform refresh
-terraform apply -auto-approve
+#terraform init
+#terraform refresh
+#terraform apply -auto-approve
 
  """ 
 	}
