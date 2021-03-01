@@ -39,7 +39,7 @@ resource "kubernetes_deployment" "nginx" {
       }
       spec {
         container {
-          image = "jenkinsci/blueocean"
+          image = "danyyanez/sba_kuber"
           name  = "example"
 
           port {
