@@ -33,7 +33,7 @@ resource "kubernetes_deployment" "flaskapp" {
       }
       spec {
         container {
-          image = "python:3.7-alpine"
+          image = "danyyanez/sba_kuber"
           name  = "example"
 
           port {
@@ -46,8 +46,8 @@ resource "kubernetes_deployment" "flaskapp" {
               memory = "512Mi"
             }
             requests = {
-              cpu    = "0.5"
-              memory = "512Mi"
+              cpu    = "250m"
+              memory = "50Mi"
             }
           }
         }
