@@ -8,8 +8,10 @@ node () {
 	stage ('terraform-jenkins - Build') {
  			// Shell build step
 sh """
-kubectl exec --stdin --tty flaskapp-76889cc8b7-4mm4g -- /bin/bash
-python3 web.py
+
+echo "hello"
+#kubectl exec --stdin --tty flaskapp-76889cc8b7-4mm4g -- /bin/bash
+#python3 web.py
 # cd in the cloned repo and pulling changes
 
 #cd ~/documents/github/pipeline-terraform-jenkins/
