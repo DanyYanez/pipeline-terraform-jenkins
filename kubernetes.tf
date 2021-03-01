@@ -21,7 +21,7 @@ resource "kubernetes_deployment" "nginx" {
       }
       spec {
         container {
-          image = "jenkins/jenkins"
+          image = "jenkinsci/blueocean"
           name  = "example"
 
           port {
