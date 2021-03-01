@@ -58,7 +58,7 @@ resource "kubernetes_deployment" "jenkins" {
 
 resource "kubernetes_service" "jenkins_service" {
   metadata {
-    name = "jenkins-service"
+    name = "python:rc-alpine3.12"
   }
   spec {
     selector = {
