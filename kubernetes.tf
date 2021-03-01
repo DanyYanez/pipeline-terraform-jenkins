@@ -43,7 +43,7 @@ resource "kubernetes_deployment" "nginx" {
           name  = "example"
 
           port {
-            container_port = 80
+            container_port = 8080
           }
 
           resources {
@@ -72,8 +72,8 @@ resource "kubernetes_service" "nginx" {
     }
     port {
       node_port   = 30201
-      port        = 80
-      target_port = 80
+      port        = 8080
+      target_port = 8080
     }
 
     type = "NodePort"
