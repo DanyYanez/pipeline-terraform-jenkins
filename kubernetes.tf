@@ -3,9 +3,6 @@ terraform {
     kubernetes = {
       source = "hashicorp/kubernetes"
     }
-    docker = {
-      source = "kreuzwerker/docker"
-    }
   }
 }
 
@@ -13,12 +10,9 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
-provider "docker" {
-}
-
-resource "kubernetes_deployment" "nginx" {
+resource "kubernetes_deployment" "jenkins" {
   metadata {
-    name = "scalable-nginx-example"
+    name = "jenkins"
     labels = {
       App = "ScalableNginxExample"
     }
@@ -62,13 +56,13 @@ resource "kubernetes_deployment" "nginx" {
   }
 }
 
-resource "kubernetes_service" "nginx" {
+resource "kubernetes_service" "jenkins_service" {
   metadata {
-    name = "nginx-example"
+    name = "jenkins-service"
   }
   spec {
     selector = {
-      App = kubernetes_deployment.nginx.spec.0.template.0.metadata[0].labels.App
+      App = kubernetes_deployment.jenkins.spec.0.template.0.metadata[0].labels.App
     }
     port {
       node_port   = 30201
