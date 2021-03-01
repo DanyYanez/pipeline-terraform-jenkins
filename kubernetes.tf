@@ -28,7 +28,7 @@ resource "kubernetes_deployment" "jenkins" {
           image = "jenkins/jenkins"
           name  = "jenkins"
           port {
-            container_port = 5000
+            container_port = 80
           }
         }
       }
@@ -43,9 +43,9 @@ resource "kubernetes_service" "jenkins-service" {
   spec {
     selector = local.jenkins_labels
     port {
-      port        = 5000
-      target_port = 5000
-      node_port   = 32000
+      port        = 80
+      target_port = 80
+      node_port   = 30201
     }
     type = "NodePort"
   }
