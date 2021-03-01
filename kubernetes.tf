@@ -46,8 +46,8 @@ resource "kubernetes_deployment" "flaskapp" {
               memory = "512Mi"
             }
             requests = {
-              cpu    = "250m"
-              memory = "50Mi"
+              cpu    = "0.5"
+              memory = "512Mi"
             }
           }
         }
