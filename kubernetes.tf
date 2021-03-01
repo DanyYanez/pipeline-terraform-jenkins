@@ -33,7 +33,7 @@ resource "kubernetes_deployment" "flaskapp" {
       }
       spec {
         container {
-          image = "danyyanez/sba_kuber"
+          image = "python:3.7-alpine"
           name  = "example"
 
           port {
