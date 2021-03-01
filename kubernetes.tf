@@ -56,7 +56,7 @@ resource "kubernetes_deployment" "flaskapp" {
   }
 }
 
-resource "kubernetes_service" "flaskapp-service" {
+resource "kubernetes_service" "flaskapp" {
   metadata {
     name = "flaskapp-service"
   }
