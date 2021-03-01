@@ -1,54 +1,34 @@
-terraform {
-  required_providers {
-    kubernetes = {
-      source = "hashicorp/kubernetes"
-    }
-  }
-}
-
 provider "kubernetes" {
+#  config_context = "minikube"
   config_path = "~/.kube/config"
 }
 
-resource "kubernetes_deployment" "nginx" {
-  metadata {
-    name = "scalable-nginx-example"
-    labels = {
-      App = "ScalableNginxExample"
-    }
+locals {
+  flaskapp_labels = {
+    App  = "Jenkins"
   }
+}
 
+resource "kubernetes_deployment" "Jenkins" {
+  metadata {
+    name   = "Jenkins"
+    labels = local.Jenkins_labels
+  }
   spec {
-    replicas = 3
+    replicas = 1
     selector {
-      match_labels = {
-        App = "ScalableNginxExample"
-      }
+      match_labels = local.Jenkins_labels
     }
     template {
       metadata {
-        labels = {
-          App = "ScalableNginxExample"
-        }
+        labels = local.Jenkins_labels
       }
       spec {
         container {
-          image = "danyyanez/sba_kuber"
-          name  = "example"
-
+          image = "jenkins/jenkins"
+          name  = "Jenkins"
           port {
-            container_port = 80
-          }
-
-          resources {
-            limits = {
-              cpu    = "0.5"
-              memory = "512Mi"
-            }
-            requests = {
-              cpu    = "250m"
-              memory = "50Mi"
-            }
+            container_port = 5000
           }
         }
       }
@@ -56,22 +36,17 @@ resource "kubernetes_deployment" "nginx" {
   }
 }
 
-resource "kubernetes_service" "nginx" {
+resource "kubernetes_service" "Jenkins-service" {
   metadata {
-    name = "nginx-example"
+    name = "Jenkins-service"
   }
   spec {
-    selector = {
-      App = kubernetes_deployment.nginx.spec.0.template.0.metadata[0].labels.App
-    }
+    selector = local.Jenkins_labels
     port {
-      node_port   = 30201
-      port        = 80
-      target_port = 80
+      port        = 5000
+      target_port = 5000
+      node_port   = 32000
     }
-
     type = "NodePort"
   }
 }
-
-
