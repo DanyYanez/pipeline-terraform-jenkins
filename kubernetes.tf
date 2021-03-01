@@ -3,17 +3,11 @@ terraform {
     kubernetes = {
       source = "hashicorp/kubernetes"
     }
-    docker = {
-      source = "kreuzwerker/docker"
-    }
   }
 }
 
 provider "kubernetes" {
   config_path = "~/.kube/config"
-}
-
-provider "docker" {
 }
 
 resource "kubernetes_deployment" "nginx" {
