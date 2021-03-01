@@ -1,34 +1,42 @@
-provider "kubernetes" {
-#  config_context = "minikube"
-  config_path = "~/.kube/config"
-}
-
-locals {
-  jenkins_labels = {
-    App  = "Jenkins"
-  }
-}
-
-resource "kubernetes_deployment" "jenkins" {
+resource "kubernetes_deployment" "nginx" {
   metadata {
-    name   = "jenkins"
-    labels = local.jenkins_labels
+    name = "scalable-nginx-example"
+    labels = {
+      App = "ScalableNginxExample"
+    }
   }
+
   spec {
-    replicas = 1
+    replicas = 2
     selector {
-      match_labels = local.jenkins_labels
+      match_labels = {
+        App = "ScalableNginxExample"
+      }
     }
     template {
       metadata {
-        labels = local.jenkins_labels
+        labels = {
+          App = "ScalableNginxExample"
+        }
       }
       spec {
         container {
           image = "jenkins/jenkins"
-          name  = "jenkins"
+          name  = "example"
+
           port {
-            container_port = 9090
+            container_port = 80
+          }
+
+          resources {
+            limits = {
+              cpu    = "0.5"
+              memory = "512Mi"
+            }
+            requests = {
+              cpu    = "250m"
+              memory = "50Mi"
+            }
           }
         }
       }
@@ -36,17 +44,21 @@ resource "kubernetes_deployment" "jenkins" {
   }
 }
 
-resource "kubernetes_service" "jenkins-service" {
+resource "kubernetes_service" "nginx" {
   metadata {
-    name = "jenkins-service"
+    name = "nginx-example"
   }
   spec {
-    selector = local.jenkins_labels
-    port {
-      port        = 9090
-      target_port = 9090
-      node_port   = 30205
+    selector = {
+      App = kubernetes_deployment.nginx.spec.0.template.0.metadata[0].labels.App
     }
+    port {
+      node_port   = 30201
+      port        = 80
+      target_port = 80
+    }
+
     type = "NodePort"
   }
 }
+
