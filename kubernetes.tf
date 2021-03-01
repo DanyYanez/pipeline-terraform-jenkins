@@ -4,29 +4,29 @@ provider "kubernetes" {
 }
 
 locals {
-  Jenkins_labels = {
+  jenkins_labels = {
     App  = "Jenkins"
   }
 }
 
-resource "kubernetes_deployment" "Jenkins" {
+resource "kubernetes_deployment" "jenkins" {
   metadata {
-    name   = "Jenkins"
-    labels = local.Jenkins_labels
+    name   = "jenkins"
+    labels = local.jenkins_labels
   }
   spec {
     replicas = 1
     selector {
-      match_labels = local.Jenkins_labels
+      match_labels = local.jenkins_labels
     }
     template {
       metadata {
-        labels = local.Jenkins_labels
+        labels = local.jenkins_labels
       }
       spec {
         container {
           image = "jenkins/jenkins"
-          name  = "Jenkins"
+          name  = "jenkins"
           port {
             container_port = 5000
           }
@@ -36,12 +36,12 @@ resource "kubernetes_deployment" "Jenkins" {
   }
 }
 
-resource "kubernetes_service" "Jenkins-service" {
+resource "kubernetes_service" "jenkins-service" {
   metadata {
-    name = "Jenkins-service"
+    name = "jenkins-service"
   }
   spec {
-    selector = local.Jenkins_labels
+    selector = local.jenkins_labels
     port {
       port        = 5000
       target_port = 5000
