@@ -33,11 +33,11 @@ resource "kubernetes_deployment" "flaskapp" {
       }
       spec {
         container {
-          image = "danyyanez/sba_kuber"
+          image = "jenkinsci/blueocean"
           name  = "example"
 
           port {
-            container_port = 80
+            container_port = 8080
           }
 
           resources {
@@ -66,8 +66,8 @@ resource "kubernetes_service" "flaskapp" {
     }
     port {
       node_port   = 30201
-      port        = 80
-      target_port = 80
+      port        = 8080
+      target_port = 8080
     }
 
     type = "NodePort"
