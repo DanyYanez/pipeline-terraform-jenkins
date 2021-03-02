@@ -33,7 +33,7 @@ resource "kubernetes_deployment" "flaskapp" {
       }
       spec {
         container {
-          image = "danyyanez/sba_kuber"
+          image = "danyyanez/final_proyect"
           name  = "example"
 
           port {
